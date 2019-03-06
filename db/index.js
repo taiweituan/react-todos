@@ -1,24 +1,38 @@
-import Sequelize from 'sequelize';
-import todoModel from './models/todo';
-
+const path = require('path');
+const Sequelize =  require('sequelize');
 const env = process.env.NODE_ENV || 'development';
-const db = {};
+const dbPath = path.resolve(__dirname, '/data/test.sqlite');
+// const db = 
 let sequelize;
 
-if (env !== 'production') {
+if (env === 'production') {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres',
+    });
+} else {   
     sequelize = new Sequelize(undefined, undefined, undefined, {
         dialect: 'sqlite',
-        storage: `${__dirname}/data/dev-todo-api.sqlite`,
+        storage: dbPath
     });
 }
 
-sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
+db.todo = sequelize.define('todo', {
+    description:{
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+            len: [1, 250]
+        }
+    },
+    completed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
 });
 
-db.todo = sequelize.import(todoModel);
+sequelize.sync();
+// db.sequalize = sequelize;
+// db.Sequelize = Sequelize;
 
-db.sequalize = sequelize;
-db.Sequelize = Sequelize;
-
-export default db;
+// module.exports = db;

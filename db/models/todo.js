@@ -1,5 +1,5 @@
 
-const todoModel = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     return sequelize.define('todo', {
         description:{
             type: DataTypes.STRING,
@@ -15,5 +15,3 @@ const todoModel = (sequelize, DataTypes) => {
         }
     });
 };
-
-export default todoModel;

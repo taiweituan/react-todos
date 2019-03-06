@@ -1,7 +1,7 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import _ from 'lodash';
-import db from '../db';
+let express = require('express');
+let bodyParser = require('body-parser');
+let _ = require('lodash');
+let db = require('../db/index.js');
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -28,7 +28,7 @@ app.post('/todos', (req, res) => {
     }
 
     // construct database
-    db.todo.create(body).then(function(todos) {
+    db.todo.create(body).then((todos) => {
         if (todos) {
             // res.json(todos.toJSON());
             console.log(todos.toJSON());
@@ -42,13 +42,13 @@ app.post('/todos', (req, res) => {
         } else {
             console.log('no todo found');
         }
-    }).catch(function(e) {
+    }).catch((e) => {
         res.status(400).json(e);
     });
 });
 
-db.sequelize.sync({
-    force: false
+db.sequalize.sync({
+    force: true
 }).then(function() {
     app.listen(PORT, function() {
         console.log('expresss listiening on port: ' + PORT);
