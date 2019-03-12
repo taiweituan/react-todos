@@ -9,9 +9,10 @@ const PORT = process.env.PORT || 8081;
 app.use(bodyParser.json());
 
 // GET all todos
-app.get('/todo', (req, res) => {
-    db.sequalize.sync().then((todo) => {
-        res.json(todo);
+app.get('/todos', (req, res) => {
+    db.sequalize.sync().then(() => {
+        // TODO
+        return res.json(db.todo);
     }).catch((e) => {
         console.log(e);
         return res.status(500).send();
@@ -24,6 +25,7 @@ app.post('/todos', (req, res) => {
 
     // validation
     if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
+        console.log('Error: Missing either "completed" or "description" field!');
         return res.status(400).send();
     }
 
