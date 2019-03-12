@@ -69,3 +69,7 @@ bundle.min.js
 
 # DIST directory
 dist/
+
+# DB file for development
+data/
+*.sqlite
