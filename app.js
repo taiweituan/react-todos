@@ -1,31 +1,24 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let _ = require('lodash');
-let db = require('../db/index.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const _ = require('lodash');
+const env = process.env.NODE_ENV || 'development';
+const db = require('./db/index');
 
+/**
+ * Controllers
+ */
+const todoController = require('./controllers/todo');
+
+/**
+ * Express configuration.
+ */
 const app = express();
 const PORT = process.env.PORT || 8081;
-
 app.use(bodyParser.json());
 
-// GET all todos
-app.get('/todos', (req, res) => {
-    console.log('GET Todos');
-    const query = req.query;
-    let where = {};
 
-    db.sequalize.sync().then(() => {
-        db.todo.findAll({
-            where: where
-        }).then((todo) => {
-            console.log(todo.dataValues);
-            return res.json(todo);
-        });
-    }).catch((e) => {
-        console.log(e);
-        return res.status(500).send();
-    });
-});
+// GET all todos
+app.get('/todos', todoController.getTodos);
 
 app.get('/todos/:id', (req, res) => {
     console.log(`GET Todo ID: ${req.params.id}`);
@@ -98,6 +91,7 @@ app.delete('/todos/:id', (req, res) => {
         return res.status(500).json(e);
     });
 });
+
 
 db.sequalize.sync({
     force: false    // set 'true' to create a new database when server runs

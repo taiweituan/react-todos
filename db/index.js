@@ -2,6 +2,7 @@ const path = require('path');
 const Sequelize =  require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const dbPath = path.resolve(__dirname, '../data/test.sqlite');
+const todosModelPath = path.resolve(__dirname, '../models/todo.js');
 const db = {};
 let sequelize;
 
@@ -18,7 +19,8 @@ if (env === 'production') {
     });
 }
 
-db.todo = sequelize.import(`${__dirname}/models/todo.js`);
+// import model
+db.todo = sequelize.import(todosModelPath);
 
 // sequelize.sync();
 db.sequalize = sequelize;
