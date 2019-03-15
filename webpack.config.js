@@ -6,8 +6,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         main: [
-            './src/index.js', 
-            './src/style/main.scss'
+            './view/index.js', 
+            './view/style/main.scss'
         ]
     },
     output: {
@@ -42,7 +42,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: './src/index.html',
+            template: './public/index.html',
             filename: './index.html'
         })
     ]

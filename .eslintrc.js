@@ -2,9 +2,12 @@ module.exports = {
     "env": {
         "node": true,
         "commonjs": true,
-        "es6": false
+        "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
