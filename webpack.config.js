@@ -6,8 +6,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         main: [
-            './view/index.js', 
-            './view/style/main.scss'
+            './views/index.js', 
+            './views/style/main.scss'
         ]
     },
     output: {
@@ -45,5 +45,10 @@ module.exports = {
             template: './public/index.html',
             filename: './index.html'
         })
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'public'),
+        compress: false,
+        port: 8081
+    }
 };

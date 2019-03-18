@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const path = require('path');
 const db = require('./db/index');
 
 /**
@@ -31,6 +31,7 @@ app.delete('/todos/:id', todoController.deleteTodo);
 db.sequalize.sync({
     force: false    // set 'true' to create a new database when server runs
 }).then(function() {
+    // app.use(express.static(path.resolve(__dirname, './public')));
     app.listen(PORT, function() {
         console.log('expresss listiening on port: ' + PORT);
     });
