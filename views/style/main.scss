@@ -1,3 +1,16 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+// Utilities
+@import "./utilities/variables";
+@import "./utilities/mixins";
+
+// Base
+@import "./base/base";
+
+// Components
+@import "./components/landing";
+
+// Pages
+@import "./pages/home";
+
+// Common
+@import "./common/header";
+@import "./common/common";
