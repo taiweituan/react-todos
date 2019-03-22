@@ -12,7 +12,7 @@ const todoController = require('./controllers/todo');
  * Express configuration.
  */
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 
 // GET all todos
