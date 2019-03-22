@@ -12,14 +12,25 @@ const todoApi = axios.create({
 });
 
 export const getTodos = () => {
-    return async (dispatch) => {
-        console.log('get todoss action');
-        const response = await todoApi.get('/todos');
-
-        dispatch({
-            type: GET_TODOS,
-            payload: response.data
+    return (dispatch) => {
+        // const response =  todoApi.get('/todos');
+        todoApi.get('/todos').then((res) => {
+            console.log(res);
+            dispatch({
+                type: GET_TODOS,
+                payload: res.data
+            });
         });
     };
 };
 
+export const fetchStreams = () => {
+    return async (dispatch) => {
+        const response = await streams.get("/streams");
+
+        dispatch({
+            type: FETCH_STREAMS,
+            payload: response.data
+        });
+    };
+};

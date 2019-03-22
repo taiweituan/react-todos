@@ -8,7 +8,6 @@ class App extends React.Component {
             <div>
                 <Header />
                 <div className="container">
-                    Hello World!
                     <Todos />
                 </div>
             </div>
