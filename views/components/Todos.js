@@ -1,5 +1,6 @@
 import React from 'react';
 import  { connect } from 'react-redux';
+import moment from 'moment';
 
 import { getTodos } from '../actions';
 
@@ -21,8 +22,9 @@ class Todos extends React.Component {
     }
 
     renderTime(time) {        
-        const output = (new Date(time)).toLocaleString();
-
+        // const output = (new Date(time)).toLocaleString();
+        const output = moment(time).fromNow();
+        
         return (
             <div><b>Last Updated:</b> {output}</div>
         );
@@ -31,12 +33,19 @@ class Todos extends React.Component {
     renderTodoList() {
         return this.props.todos.map((todo) => {
             return (
-                <div className="media text-muted pt-3" key={todo.id}>
+                <div className="media text-muted pt-3 todo-list" key={todo.id}>
                     <div className="bd-placeholder-img mr-2 rounded">
                         {this.renderIsCompleted(todo.completed)}
                     </div>
                     <div className="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         {todo.description}
+
+                        {/* buttons */}
+                        <div className="float-right todo-list__buttons">
+                            <a className="btn btn-info btn-sm text-white"><i className="far fa-edit"></i></a>
+                            <a className="btn btn-danger btn-sm text-white"><i className="far fa-trash-alt"></i></a>
+                        </div>
+
                         {this.renderTime(todo.updatedAt)}
                     </div>
                 </div>
