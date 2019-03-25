@@ -1,10 +1,12 @@
 import axios from 'axios';
+import history from '../history';
 
 import { 
     GET_TODO,
     GET_TODOS,
     DELETE_TODO,
-    EDIT_TODO
+    EDIT_TODO,
+    CREATE_TODO
 } from './types';
 
 const todoApi = axios.create({
@@ -24,13 +26,19 @@ export const getTodos = () => {
     };
 };
 
-export const fetchStreams = () => {
-    return async (dispatch) => {
-        const response = await streams.get("/streams");
+export const createTodo = (description) => {
+    return (dispatch) => {
+        todoApi.post('todos', {
+            description: description
+        }).then((res) => {
+            console.log(res);
+            dispatch({
+                type: CREATE_TODO,
+                payload: res.data
+            });
 
-        dispatch({
-            type: FETCH_STREAMS,
-            payload: response.data
+            // Go to home page after success create todo
+            history.push('/');
         });
     };
 };
