@@ -10,11 +10,11 @@ class TodoForm extends React.Component {
                 </div>
             );
         }
-    };
+    }
     
     // Changed to function becuse 'this' needs to reference to class
-    renderInput = ({input, label, meta}) => {
-        const className = `${meta.error && meta.touched ? error : ""}`;
+    renderInput({input, label, meta}){
+        const className = `${meta.error && meta.touched ? 'error' : ''}`;
 
         return (
             <div className={className}>
@@ -23,9 +23,9 @@ class TodoForm extends React.Component {
                 {this.renderError(meta)}
             </div>
         );
-    };
+    }
 
-    onSubmit = (formValues) => {
+    onSubmit(formValues){
         this.props.onSubmit(formValues);
     }
 
@@ -34,22 +34,28 @@ class TodoForm extends React.Component {
             <form 
                 className="from"
                 onSubmit={this.props.handleSubmit(this.onSubmit)}
-                >
+            >
                 <Field name="description" component={this.renderInput} label="Enter Todo" />
+                TEST MODAL
                 {/* add checkbox */}
+                <button className="btn btn-primary">Submit</button>
             </form>
         );
     }
-};
+}
 
 const validate = (formValues) => {
     const errors = {};
 
     if(!formValues.description) {
-        errors.description = "Description is required";
+        errors.description = 'Description is required';
     }
 
-    // complete complete 
-
+    // complete  
     return errors;
 };
+
+export default reduxForm({
+    form: 'todoForm',
+    validate
+})(TodoForm);

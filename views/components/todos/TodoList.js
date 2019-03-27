@@ -1,9 +1,11 @@
 import React from 'react';
 import  { connect } from 'react-redux';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
-import { getTodos } from '../actions';
+import { getTodos } from '../../actions';
 
+// Main Todo Page
 class Todos extends React.Component {
     componentDidMount() {
         console.log('did mount');        
@@ -53,6 +55,16 @@ class Todos extends React.Component {
         });
     }
 
+    renderCreate() {
+        return (
+            <div>
+                <Link to="/todo/new" className="btn btn-primary">
+                    Create Stream
+                </Link>
+            </div>
+        );
+    }
+
     render () {
         // Before API call responds
         if (!this.props.todos) {
@@ -63,6 +75,7 @@ class Todos extends React.Component {
             <div className="my-3 p-3 bg-white rounded shadow-sm">
                 <h6 className="border-bottom border-gray pb-2 mb-0">My Todo List</h6>
                 {this.renderTodoList()}
+                {this.renderCreate()}
             </div>
         );
     }

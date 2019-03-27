@@ -1,15 +1,24 @@
 import React from 'react';
-import { connect } from 'net';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { createTodo } from '../../actions';
+import TodoForm from './TodoForm';
 
 class TodoCreate extends React.Component {
+    onSubmit(formValue) {
+        this.props.createTodo(formValue);
+    }
+    
     render () {
         return (
-            <h3>Create Todo</h3>
+            <div>
+                <h3>Create Todo</h3>
+                <TodoForm onSubmit={this.onSubmit} />
+            </div>
         );
     }
 }
 
 export default connect(
     null,
+    {createTodo}
 )(TodoCreate);
