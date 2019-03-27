@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class TodoForm extends React.Component {
-    renderError({error, touched}){
+    renderError = ({error, touched}) =>{
         if (touched && error) {
             return (
                 <div className="error">
@@ -13,7 +13,7 @@ class TodoForm extends React.Component {
     }
     
     // Changed to function becuse 'this' needs to reference to class
-    renderInput({input, label, meta}){
+    renderInput = ({input, label, meta}) =>{
         const className = `${meta.error && meta.touched ? 'error' : ''}`;
 
         return (
@@ -32,7 +32,7 @@ class TodoForm extends React.Component {
     render() {
         return (
             <form 
-                className="from"
+                className="form"
                 onSubmit={this.props.handleSubmit(this.onSubmit)}
             >
                 <Field name="description" component={this.renderInput} label="Enter Todo" />

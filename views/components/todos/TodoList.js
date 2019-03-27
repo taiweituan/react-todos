@@ -1,9 +1,10 @@
 import React from 'react';
 import  { connect } from 'react-redux';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+import moment from 'moment';
 import { getTodos } from '../../actions';
+import {Button} from 'react-bootstrap';
 
 // Main Todo Page
 class Todos extends React.Component {
@@ -44,8 +45,8 @@ class Todos extends React.Component {
 
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
-                            <a className="btn btn-info btn-sm text-white"><i className="far fa-edit"></i></a>
-                            <a className="btn btn-danger btn-sm text-white"><i className="far fa-trash-alt"></i></a>
+                            <Button variant='success'><i className="far fa-edit"></i></Button>
+                            <Button variant='secondary'><i className="far fa-trash-alt"></i></Button>
                         </div>
 
                         {this.renderTime(todo.updatedAt)}
@@ -58,7 +59,7 @@ class Todos extends React.Component {
     renderCreate() {
         return (
             <div>
-                <Link to="/todo/new" className="btn btn-primary">
+                <Link to="/todos/new" className="btn btn-primary">
                     Create Stream
                 </Link>
             </div>

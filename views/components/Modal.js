@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Modal} from 'react-bootstrap'; 
 
-const Modal = (props) => {
+const TodoModal = (props) => {
     console.log(props);
     
     return ReactDOM.createPortal(
-        <div onClick={props.onDismiss} className="ui dimmer modals visible active">
+        <Modal.Dialog onClick={props.onDismiss} className="ui dimmer modals visible active">
             <div onClick={(e) => e.stopPropagation()} className="ui standard modal visible active">
                 <div className="header">{props.title}</div>
                 <div className="content">
@@ -15,9 +16,9 @@ const Modal = (props) => {
                     {props.actions}
                 </div>
             </div>
-        </div>,
+        </Modal.Dialog>,
         document.querySelector('#modal')
     );
 };
 
-export default Modal;
+export default TodoModal;
