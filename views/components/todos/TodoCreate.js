@@ -5,7 +5,7 @@ import TodoForm from './TodoForm';
 // import TodoModal from '../Modal';
 
 class TodoCreate extends React.Component {
-    onSubmit(formValue) {
+    onSubmit = (formValue) => {
         this.props.createTodo(formValue);
     }
     

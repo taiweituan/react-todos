@@ -45,7 +45,7 @@ module.exports = {
     },
 
     // POST /todos
-    createTodo: (req, res) => {
+    createTodo: (req, res) => {        
         const body = _.pick(req.body, 'description', 'completed');
     
         // validation
@@ -58,6 +58,7 @@ module.exports = {
         db.todo.create(body).then((todos) => {
             if (todos) {
                 console.log(todos.toJSON());
+                // TODO
                 req.user.addTodo(todos).then(() => {
                     // the todos result is different from database
                     // thus, reload is needed
@@ -69,6 +70,7 @@ module.exports = {
                 console.log('no todo found');
             }
         }).catch((e) => {
+            console.log(e);
             res.status(400).json(e);
         });
     },

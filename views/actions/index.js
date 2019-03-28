@@ -26,10 +26,12 @@ export const getTodos = () => {
     };
 };
 
-export const createTodo = (description) => {
+export const createTodo = ({description}) => {
     return (dispatch) => {
-        todoApi.post('todos', {
-            description: description
+        console.log(description);
+        todoApi.post('/todos', {
+            description: description,
+            completed: false
         }).then((res) => {
             console.log(res);
             dispatch({

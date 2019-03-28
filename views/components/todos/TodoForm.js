@@ -25,7 +25,7 @@ class TodoForm extends React.Component {
         );
     }
 
-    onSubmit(formValues){
+    onSubmit = (formValues) =>{
         this.props.onSubmit(formValues);
     }
 
@@ -36,7 +36,6 @@ class TodoForm extends React.Component {
                 onSubmit={this.props.handleSubmit(this.onSubmit)}
             >
                 <Field name="description" component={this.renderInput} label="Enter Todo" />
-                TEST MODAL
                 {/* add checkbox */}
                 <button className="btn btn-primary">Submit</button>
             </form>
