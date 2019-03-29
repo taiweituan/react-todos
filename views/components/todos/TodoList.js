@@ -34,7 +34,7 @@ class Todos extends React.Component {
     }
 
     renderTodoList() {
-        return this.props.todos.map((todo) => {
+        return this.props.todos.map((todo) => {            
             return (
                 <div className="media text-muted pt-3 todo-list" key={todo.id}>
                     <div className="bd-placeholder-img mr-2 rounded">
@@ -45,8 +45,14 @@ class Todos extends React.Component {
 
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
-                            <Button variant='success'><i className="far fa-edit"></i></Button>
-                            <Button variant='secondary'><i className="far fa-trash-alt"></i></Button>
+                            <Link to={`/todos/delete/${todo.id}`}>
+                                <Button variant='success'>
+                                    <i className="far fa-trash-alt"></i>
+                                </Button>
+                            </Link>
+                            <Button variant='secondary'>
+                                <i className="far fa-edit"></i>
+                            </Button>
                         </div>
 
                         {this.renderTime(todo.updatedAt)}

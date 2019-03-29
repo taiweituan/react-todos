@@ -57,15 +57,7 @@ module.exports = {
         // construct database
         db.todo.create(body).then((todos) => {
             if (todos) {
-                console.log(todos.toJSON());
-                // TODO
-                req.user.addTodo(todos).then(() => {
-                    // the todos result is different from database
-                    // thus, reload is needed
-                    return todos.reload();
-                }).then((todo) => {
-                    res.json(todo.toJSON());
-                });
+                res.json(todos.toJSON());
             } else {
                 console.log('no todo found');
             }

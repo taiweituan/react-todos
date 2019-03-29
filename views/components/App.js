@@ -4,8 +4,11 @@ import { Router, Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Todos from './todos/TodoList';
 import TodoCreate from './todos/TodoCreate';
+import TodoDelete from './todos/TodoDelete';
 
 import history from '../history';
+import {Container} from 'react-bootstrap';
+
 class App extends React.Component {
     render() {
         return (
@@ -13,10 +16,13 @@ class App extends React.Component {
                 <Router history={history}>
                     <div>
                         <Header />
-                        <Switch>
-                            <Route path="/" exact component={Todos}></Route>
-                            <Route path="/todos/new" component={TodoCreate}></Route>
-                        </Switch>
+                        <Container>
+                            <Switch>
+                                <Route path="/" exact component={Todos}></Route>
+                                <Route path="/todos/new" component={TodoCreate}></Route>
+                                <Route path="/todos/delete/:id" component={TodoDelete}></Route>
+                            </Switch>
+                        </Container>
                     </div>
                 </Router>
             </div>
