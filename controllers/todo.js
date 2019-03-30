@@ -21,7 +21,7 @@ module.exports = {
         });
     },
 
-    // GET todos/:id
+    // GET /todos/:id
     getOneTodo: (req, res) => {
         console.log(`GET Todo ID: ${req.params.id}`);
         const todoId = parseInt(req.params.id, 10);
@@ -57,6 +57,7 @@ module.exports = {
         // construct database
         db.todo.create(body).then((todos) => {
             if (todos) {
+                console.log(todos.toJSON());
                 res.json(todos.toJSON());
             } else {
                 console.log('no todo found');

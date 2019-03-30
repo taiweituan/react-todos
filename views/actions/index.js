@@ -13,6 +13,33 @@ const todoApi = axios.create({
     baseURL: 'http://localhost:3001'
 });
 
+// DELETE single todo /todos/:id
+export const deleteTodo = (id) => {
+    return (dispatch) => {
+        todoApi.delete(`/todos/${id}`).then((res) => {
+            console.log(res.data);
+            dispatch({
+                type: DELETE_TODO,
+                payload: id
+            });
+            history.push('/');
+        });
+    };
+};
+
+// GET single todo /todos/:id
+export const getTodo = (id) => {
+    return (dispatch) => {
+        todoApi.get(`/todos/${id}`).then((res) => {
+            console.log(res.data);
+            dispatch({
+                type: GET_TODO,
+                payload: res.data
+            });
+        });
+    };
+};
+
 export const getTodos = () => {
     return (dispatch) => {
         // const response =  todoApi.get('/todos');
@@ -28,7 +55,7 @@ export const getTodos = () => {
 
 export const createTodo = ({description}) => {
     return (dispatch) => {
-        console.log(description);
+        // console.log(description);
         todoApi.post('/todos', {
             description: description,
             completed: false
@@ -44,3 +71,4 @@ export const createTodo = ({description}) => {
         });
     };
 };
+

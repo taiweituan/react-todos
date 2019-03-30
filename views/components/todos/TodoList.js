@@ -45,10 +45,8 @@ class Todos extends React.Component {
 
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
-                            <Link to={`/todos/delete/${todo.id}`}>
-                                <Button variant='success'>
-                                    <i className="far fa-trash-alt"></i>
-                                </Button>
+                            <Link className="btn btn-danger" to={`/todos/delete/${todo.id}`}>
+                                <i className="far fa-trash-alt"></i>
                             </Link>
                             <Button variant='secondary'>
                                 <i className="far fa-edit"></i>
