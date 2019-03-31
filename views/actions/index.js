@@ -27,6 +27,14 @@ export const deleteTodo = (id) => {
     };
 };
 
+// TODO:
+// export const editTodo = (id, formValues) => {
+//     return (dispatch) => {
+//         todoApi.post(`/todos/${id}`)
+//     }
+// }
+
+
 // GET single todo /todos/:id
 export const getTodo = (id) => {
     return (dispatch) => {

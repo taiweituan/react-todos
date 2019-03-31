@@ -36,6 +36,8 @@ app.post('/todos', todoController.createTodo);
 // DELETE /todos/:id
 app.delete('/todos/:id', todoController.deleteTodo);
 
+// PATCH /todos/:id
+app.patch('/todos/:id', todoController.editTodo);
 
 db.sequalize.sync({
     force: false    // set 'true' to create a new database when server runs

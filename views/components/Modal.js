@@ -9,10 +9,9 @@ const TodoModal = (props) => {
     return ReactDOM.createPortal(
         <Modal.Dialog onClick={props.onDismiss} >
             <div onClick={(e) => e.stopPropagation()}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
                     {props.content}
                 </Modal.Body>

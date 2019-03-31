@@ -11,9 +11,10 @@ module.exports = {
         db.sequalize.sync().then(() => {
             db.todo.findAll({
                 where: where
-            }).then((todo) => {
-                console.log(todo.dataValues);
-                return res.json(todo);
+            }).then((todos) => {
+                // todos: all todos in db
+                // console.log(todos);
+                return res.json(todos);
             });
         }).catch((e) => {
             console.log(e);
@@ -55,7 +56,7 @@ module.exports = {
         }
     
         // construct database
-        db.todo.create(body).then((todos) => {
+        db.todo.then((todos) => {
             if (todos) {
                 console.log(todos.toJSON());
                 res.json(todos.toJSON());
@@ -83,6 +84,43 @@ module.exports = {
                 console.log(`DELETED: Todo ID: ${req.params.id}`);
                 res.json({status: 'success'});
             } else {
+                return res.status(404).send();
+            }
+        }).catch((e) => {
+            return res.status(500).json(e);
+        });
+    },
+
+    editTodo: (req, res) => {
+        console.log(`PATCH Todo ID: ${req.params.id}`);
+        const todoId = parseInt(req.params.id, 10);
+        const body = _.pick(req.body, 'description', 'completed');
+        let where = {
+            id: todoId 
+        };
+        let attributes = {};
+
+        if (body.hasOwnProperty('completed')) {
+            attributes.completed = body.completed;
+        }
+        if (body.hasOwnProperty('description')) {
+            attributes.description = body.description;
+        }
+
+        db.todo.findOne({
+            where: where
+        }).then((todo) => {
+            if (todo) {
+                
+                todo.update(attributes).then((todo) => {
+                    console.log(todo.toJSON());
+                    res.json(todo.toJSON());
+                },(e) => {
+                    console.log(e);
+                    res.status(404).send();
+                });
+            } else {
+                console.log('todo not found');
                 return res.status(404).send();
             }
         }).catch((e) => {
