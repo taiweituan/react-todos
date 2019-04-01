@@ -7,6 +7,7 @@
 
 // Components
 @import "./components/landing";
+@import "./components/todoList";
 
 // Pages
 @import "./pages/home";
@@ -14,3 +15,4 @@
 // Common
 @import "./common/header";
 @import "./common/common";
+@import "./common/todoForm";

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import moment from 'moment';
 import { getTodos } from '../../actions';
-import {Button} from 'react-bootstrap';
 
 // Main Todo Page
 class Todos extends React.Component {
@@ -45,12 +44,12 @@ class Todos extends React.Component {
 
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
+                            <Link className="btn btn-info" to={`/todos/edit/${todo.id}`}>
+                                <i className="far fa-edit"></i>
+                            </Link>
                             <Link className="btn btn-danger" to={`/todos/delete/${todo.id}`}>
                                 <i className="far fa-trash-alt"></i>
                             </Link>
-                            <Button variant='secondary'>
-                                <i className="far fa-edit"></i>
-                            </Button>
                         </div>
 
                         {this.renderTime(todo.updatedAt)}
@@ -62,9 +61,9 @@ class Todos extends React.Component {
 
     renderCreate() {
         return (
-            <div>
+            <div className="text-right">
                 <Link to="/todos/new" className="btn btn-primary">
-                    Create Stream
+                    <i className="fas fa-plus"></i> Create
                 </Link>
             </div>
         );
@@ -77,10 +76,10 @@ class Todos extends React.Component {
         }
 
         return (
-            <div className="my-3 p-3 bg-white rounded shadow-sm">
+            <div className="mt-3 p-3 bg-white rounded shadow-sm">
+                {this.renderCreate()}
                 <h6 className="border-bottom border-gray pb-2 mb-0">My Todo List</h6>
                 {this.renderTodoList()}
-                {this.renderCreate()}
             </div>
         );
     }

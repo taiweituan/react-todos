@@ -6,14 +6,23 @@ import TodoForm from './TodoForm';
 
 class TodoCreate extends React.Component {
     onSubmit = (formValue) => {
+        console.log('create onSubmit');
         this.props.createTodo(formValue);
     }
     
     render() {
+        const initValue = {
+            description: '',
+            completed: false
+        };
+        
         return (
             <div>
                 <h3>Create Todo</h3>
-                <TodoForm onSubmit={this.onSubmit} />
+                <TodoForm 
+                    onSubmit={this.onSubmit} 
+                    initialValues={initValue}
+                />
             </div>
         );
     }

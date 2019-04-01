@@ -28,11 +28,19 @@ export const deleteTodo = (id) => {
 };
 
 // TODO:
-// export const editTodo = (id, formValues) => {
-//     return (dispatch) => {
-//         todoApi.post(`/todos/${id}`)
-//     }
-// }
+export const editTodo = (id, formValues) => {
+    return (dispatch) => {
+        todoApi.patch(`/todos/${id}`, formValues).then((res) => {
+            console.log(res.data);
+            dispatch({
+                type: EDIT_TODO,
+                payload: res.data
+            });
+            // Go to home page after success create todo
+            history.push('/');
+        });
+    };
+};
 
 
 // GET single todo /todos/:id
@@ -61,12 +69,12 @@ export const getTodos = () => {
     };
 };
 
-export const createTodo = ({description}) => {
+export const createTodo = ({description, completed}) => {
     return (dispatch) => {
         // console.log(description);
         todoApi.post('/todos', {
             description: description,
-            completed: false
+            completed: completed
         }).then((res) => {
             console.log(res);
             dispatch({

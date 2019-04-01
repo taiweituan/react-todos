@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
 class TodoForm extends React.Component {
@@ -13,14 +14,26 @@ class TodoForm extends React.Component {
     }
     
     // Changed to function becuse 'this' needs to reference to class
-    renderInput = ({input, label, meta}) =>{
+    renderInput = ({input, label, meta}) =>{        
         const className = `${meta.error && meta.touched ? 'error' : ''}`;
-
         return (
             <div className={className}>
                 <label>{label}</label>
                 <input {...input} />
                 {this.renderError(meta)}
+            </div>
+        );
+    }
+
+    renderCompleteCheckbox = ({input, label, meta}) => {
+        const className = `${meta.error && meta.touched ? 'error' : ''}`;
+        console.log(input);
+        
+        return (
+            <div className={className}>
+                <label>{label}</label>
+                {this.renderError(meta)}
+                <input {...input} type="checkbox" />
             </div>
         );
     }
@@ -32,12 +45,20 @@ class TodoForm extends React.Component {
     render() {
         return (
             <form 
-                className="form"
+                className="form todo-list-form"
                 onSubmit={this.props.handleSubmit(this.onSubmit)}
             >
-                <Field name="description" component={this.renderInput} label="Enter Todo" />
-                {/* add checkbox */}
+                <Field name="description" 
+                    component={this.renderInput} 
+                    label="Enter Todo" 
+                />
+                <Field name="completed" 
+                    component={this.renderCompleteCheckbox} 
+                    label="Completed" 
+                    type="checkbox"
+                />
                 <button className="btn btn-primary">Submit</button>
+                <Link to="/" className="btn btn-secondary">Cancel</Link>
             </form>
         );
     }

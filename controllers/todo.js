@@ -56,7 +56,7 @@ module.exports = {
         }
     
         // construct database
-        db.todo.then((todos) => {
+        db.todo.create(body).then((todos) => {
             if (todos) {
                 console.log(todos.toJSON());
                 res.json(todos.toJSON());

@@ -23,7 +23,10 @@ export default (state = {}, action) => {
         // key: value AKA
         // todo id: todo obj
         console.log({...state, [action.payload.id]: action.payload });
-        return {...state, [action.payload.id]: action.payload };        
+        return {...state, [action.payload.id]: action.payload };
+    case EDIT_TODO:
+        console.log({...state, [action.payload.id]: action.payload });
+        return {...state, [action.payload.id]: action.payload };
     case DELETE_TODO:
         // Return the payload that does not contains deleted item
         return _.omit(state, action.payload);
