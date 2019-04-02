@@ -61,8 +61,7 @@ typings/
 .next
 
 # webpack stuff
-bundle.js
-bundle.min.js
+public/bundle.*
 
 # MAC specific
 .DS_Store
