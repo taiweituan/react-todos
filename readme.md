@@ -1,7 +1,10 @@
 # React-Todo
 
+## Demo 
+https://my-react-todo.herokuapp.com/
+
 ## Pre-requesit
-* Have __SQLite__ in your local
+* Install __SQLite__ in your local.
 * If deploying to production server, please install __Postgre__
 * Or if you would, change the db dialect under `./db/index.js` file to your preference.
 
@@ -20,3 +23,4 @@ Also, change the API base url to `http://localhost:3001` if this development met
 - [ ] Better style in Form and Modal.
 - [ ] Seperate Webpack config for different environments (Development/Production)
 - [ ] DotEnv
+- [ ] Added User Authentication (Passport?)
