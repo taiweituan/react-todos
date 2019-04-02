@@ -72,3 +72,5 @@ public/bundle.*
 data/
 *.sqlite
 
+# VS Code Config
+.vscode/
