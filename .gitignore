@@ -60,13 +60,11 @@ typings/
 # next.js build output
 .next
 
-# webpack stuff
-public/bundle.*
-
 # MAC specific
 .DS_Store
 
 # DIST directory / Compiled Front-End files
+public/
 
 # DB file for development
 data/
