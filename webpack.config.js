@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 // const devMode = process.env.NODE_ENV !== 'production';
 
 
@@ -11,8 +13,8 @@ module.exports = {
         ]
     },
     output: {
-        path: path.join(__dirname, '/public'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        path: path.join(__dirname, '/public')
     },
     devtool: 'source-map',
     module: {
@@ -41,9 +43,14 @@ module.exports = {
         }]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
-            template: './public/index.html',
-            filename: './index.html'
+            // template: './public/index.html',
+            // filename: './index.html'
+            // title: 'Output Management',
+            template: __dirname + '/views/index.ejs',
+            filename: 'index.html',
+            inject: 'body'
         })
     ],
     devServer: {

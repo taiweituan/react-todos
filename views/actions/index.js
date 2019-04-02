@@ -10,7 +10,7 @@ import {
 } from './types';
 
 const todoApi = axios.create({
-    baseURL: 'http://localhost:3001'
+    baseURL: '/'
 });
 
 // DELETE single todo /todos/:id
