@@ -67,8 +67,6 @@ public/bundle.*
 .DS_Store
 
 # DIST directory / Compiled Front-End files
-dist/
-public/
 
 # DB file for development
 data/
