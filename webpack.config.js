@@ -4,17 +4,24 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // const devMode = process.env.NODE_ENV !== 'production';
 
+const VENDER_CHUNK = ['react', 'react-dom', 'react-router-dom'];
 
 module.exports = {
     entry: {
-        main: [
+        index: [
             './views/index.js', 
             './views/style/main.scss'
-        ]
+        ],
+        vender: VENDER_CHUNK    // code splitting / optimization
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.join(__dirname, '/public')
+    },
+    optimization: {
+        splitChunks:{
+            chunks: 'all'
+        }
     },
     devtool: 'source-map',
     module: {
@@ -40,14 +47,14 @@ module.exports = {
                     sourceMap: true
                 },
             }]
+        }, {
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            use: 'file-loader'
         }]
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
-            // template: './public/index.html',
-            // filename: './index.html'
-            // title: 'Output Management',
             template: __dirname + '/views/index.ejs',
             filename: 'index.html',
             inject: 'body'
