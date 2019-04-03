@@ -6,12 +6,32 @@ import {
     GET_TODOS,
     DELETE_TODO,
     EDIT_TODO,
-    CREATE_TODO
+    CREATE_TODO,
+    SHOW_MODAL,
+    HIDE_MODAL
 } from './types';
 
 const todoApi = axios.create({
     baseURL: '/'
 });
+
+export const showModal = ({modalProps, modalType}) => {
+    return (dispatch) => {
+        dispatch({
+            type: SHOW_MODAL,
+            modalProps,
+            modalType
+        });
+    };
+};
+
+export const hideModal = () => {
+    return (dispatch) => {
+        dispatch({
+            type: HIDE_MODAL
+        });
+    };
+};
 
 // DELETE single todo /todos/:id
 export const deleteTodo = (id) => {

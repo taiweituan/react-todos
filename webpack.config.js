@@ -63,6 +63,11 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         compress: false,
-        port: 3002
+        port: 3002,
+        proxy: {
+            '/': {
+                target:'http://localhost:3001'
+            }
+        }
     }
 };
