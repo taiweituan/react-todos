@@ -1,12 +1,14 @@
 import React from 'react';
+import  { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import { hideModal } from '../actions';
 
 class BsModal extends React.Component {
     render() {
         return (
             <div>
                 <Modal
-                    {...this.props}
+                    show={this.props.modal.show}
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
@@ -25,7 +27,7 @@ class BsModal extends React.Component {
                         </p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.props.onHide}>Close</Button>
+                        <Button onClick={this.props.hideModal}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -33,4 +35,13 @@ class BsModal extends React.Component {
     }
 }
 
-export default BsModal;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        modal: state.modal
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    { hideModal }
+)(BsModal);

@@ -20,7 +20,8 @@ export const showModal = ({modalProps, modalType}) => {
         dispatch({
             type: SHOW_MODAL,
             modalProps,
-            modalType
+            modalType,
+            show: true
         });
     };
 };
@@ -28,7 +29,8 @@ export const showModal = ({modalProps, modalType}) => {
 export const hideModal = () => {
     return (dispatch) => {
         dispatch({
-            type: HIDE_MODAL
+            type: HIDE_MODAL,
+            show: false
         });
     };
 };
@@ -47,7 +49,7 @@ export const deleteTodo = (id) => {
     };
 };
 
-// TODO:
+// POST edit todo/:id
 export const editTodo = (id, formValues) => {
     return (dispatch) => {
         todoApi.patch(`/todos/${id}`, formValues).then((res) => {

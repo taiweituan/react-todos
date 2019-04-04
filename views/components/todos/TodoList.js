@@ -3,7 +3,9 @@ import  { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import moment from 'moment';
-import { getTodos } from '../../actions';
+import { getTodos, showModal } from '../../actions';
+import { Button } from 'react-bootstrap';
+import BsModel from '../BsModal';
 
 // Main Todo Page
 class Todos extends React.Component {
@@ -68,7 +70,6 @@ class Todos extends React.Component {
             </div>
         );
     }
-
     render () {
         // Before API call responds
         if (!this.props.todos) {
@@ -80,6 +81,11 @@ class Todos extends React.Component {
                 {this.renderCreate()}
                 <h6 className="border-bottom border-gray pb-2 mb-0">My Todo List</h6>
                 {this.renderTodoList()}
+                <Button variant="primary" onClick={this.props.showModal}>
+                    Launch demo modal
+                </Button>
+
+                <BsModel show={this.props.modal.show} />
             </div>
         );
     }
@@ -87,11 +93,12 @@ class Todos extends React.Component {
 
 const mapStateToProps = (state) => {    
     return {
-        todos: Object.values(state.todos)
+        todos: Object.values(state.todos),
+        modal: state.modal
     };
 };
 
 export default connect(
     mapStateToProps,
-    { getTodos }
+    { getTodos, showModal }
 )(Todos);
