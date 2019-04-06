@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { hideModal } from '../actions';
 
 class BsModal extends React.Component {
-    render() {
+    render() {       
         return (
             <div>
                 <Modal
@@ -12,6 +12,7 @@ class BsModal extends React.Component {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    onHide={this.props.hideModal}
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
