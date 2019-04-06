@@ -4,7 +4,46 @@ import { Modal, Button } from 'react-bootstrap';
 import { hideModal } from '../actions';
 
 class BsModal extends React.Component {
-    render() {       
+
+    renderHeader(){
+        if (!this.props.modal.modalProps) {
+            return 'Modal Loading...';
+        } else {
+            return (
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        {this.props.modal.modalProps.header}
+                    </Modal.Title>
+                </Modal.Header>
+            );
+        }
+    }
+    renderContent() {
+        if (!this.props.modal.modalProps) {
+            return 'Modal Loading...';
+        } else {
+            return (
+                <Modal.Body>
+                    {this.props.modal.modalProps.content}
+                </Modal.Body>
+            );
+        }
+    }
+
+    renderAction() {
+        if (!this.props.modal.modalProps) {
+            return 'Modal Loading...';
+        } else {
+            return (
+                <Modal.Footer>
+                    <Button onClick={this.props.hideModal}>Close</Button>
+                </Modal.Footer>
+            );
+        }
+    }
+
+    render() {
+        // console.log(this.props);
         return (
             <div>
                 <Modal
@@ -14,22 +53,9 @@ class BsModal extends React.Component {
                     centered
                     onHide={this.props.hideModal}
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Modal heading
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h4>Centered Modal</h4>
-                        <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-                            ac consectetur ac, vestibulum at eros.
-                        </p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.props.hideModal}>Close</Button>
-                    </Modal.Footer>
+                    {this.renderHeader()}
+                    {this.renderContent()}
+                    {this.renderAction()}
                 </Modal>
             </div>
         );

@@ -10,9 +10,10 @@ import BsModel from '../BsModal';
 // Main Todo Page
 class Todos extends React.Component {
     componentDidMount() {
-        console.log('did mount');        
+        // console.log('did mount');        
         this.props.getTodos();
     }
+
     renderIsCompleted(isCompleted) {
         if (isCompleted){
             return (
@@ -28,7 +29,6 @@ class Todos extends React.Component {
     renderTime(time) {        
         // const output = (new Date(time)).toLocaleString();
         const output = moment(time).fromNow();
-        
         return (
             <div><b>Last Updated:</b> {output}</div>
         );
@@ -70,22 +70,40 @@ class Todos extends React.Component {
             </div>
         );
     }
+
+    renderModalContent() {
+        return (
+            <div>
+                <div>Todo Description:</div>
+                <h4>TEST?</h4>
+            </div>
+        );
+    }
+
     render () {
         // Before API call responds
         if (!this.props.todos) {
             return <div>Loading...</div>;
         }
-
+        console.log(this.props);
         return (
             <div className="mt-3 p-3 bg-white rounded shadow-sm">
                 {this.renderCreate()}
                 <h6 className="border-bottom border-gray pb-2 mb-0">My Todo List</h6>
                 {this.renderTodoList()}
-                <Button variant="primary" onClick={this.props.showModal}>
-                    Launch demo modal
-                </Button>
 
-                <BsModel show={this.props.modal.show} />
+                <Button
+                    onClick={() => {
+                        this.props.showModal({
+                            header: 'test header',
+                            content: 'test content'
+                        }, 'CREATE_TODO');
+                    }}
+                >
+                    TEST
+                </Button>
+                
+                <BsModel />
             </div>
         );
     }

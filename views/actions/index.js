@@ -15,7 +15,14 @@ const todoApi = axios.create({
     baseURL: '/'
 });
 
-export const showModal = ({modalProps, modalType}) => {
+const bsModalInitProps = {
+    header: '',
+    content: ''
+};
+
+export const showModal = (modalProps, modalType) => {
+    // console.log(modalProps);    
+    
     return (dispatch) => {
         dispatch({
             type: SHOW_MODAL,
@@ -30,6 +37,7 @@ export const hideModal = () => {
     return (dispatch) => {
         dispatch({
             type: HIDE_MODAL,
+            modalProps: bsModalInitProps,
             show: false
         });
     };
@@ -82,7 +90,6 @@ export const getTodos = () => {
     return (dispatch) => {
         // const response =  todoApi.get('/todos');
         todoApi.get('/todos').then((res) => {
-            console.log(res);
             dispatch({
                 type: GET_TODOS,
                 payload: res.data
