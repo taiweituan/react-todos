@@ -4,22 +4,20 @@ import {
 } from '../actions/types';
 
 export default (state = {}, action) => {    
-    // const newState = {...state};
+    const newState = {...state};
     switch (action.type) {
     case SHOW_MODAL:
-        return {
-            type: action.type,
-            modalProps: action.modalProps,
-            modalType: action.modalType,
-            show: action.show
-        };
+        newState.modalType = action.modalType;
+        newState.modalProps = action.modalProps;
+        newState.show = action.show;
+        return newState;
     case HIDE_MODAL:
-        return{
-            modalType: null,                
+        return {
+            modalType: null,
             modalProps: {},
-            show: action.show
+            show: false
         };
     default:
-        return state;
+        return newState;
     }
 };

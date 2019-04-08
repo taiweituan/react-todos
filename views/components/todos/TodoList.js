@@ -1,17 +1,23 @@
 import React from 'react';
 import  { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import moment from 'moment';
+
+import TodoDelete from './TodoDelete';
 import { getTodos, showModal } from '../../actions';
 import { Button } from 'react-bootstrap';
-import BsModel from '../BsModal';
 
 // Main Todo Page
 class Todos extends React.Component {
+    constructor(props){
+        super(props);
+        this.todoTotalCount = 0;
+        this.todoCount = 0; 
+    }
+
     componentDidMount() {
         // console.log('did mount');        
-        this.props.getTodos();
+        this.props.getTodos();    
     }
 
     renderIsCompleted(isCompleted) {
@@ -35,7 +41,14 @@ class Todos extends React.Component {
     }
 
     renderTodoList() {
-        return this.props.todos.map((todo) => {            
+        this.todoTotalCount = 0;
+        this.todoCount = 0; 
+        return this.props.todos.map((todo) => { 
+            if (todo.completed === false){
+                this.todoCount++;
+            }
+            this.todoTotalCount++;      
+                 
             return (
                 <div className="media text-muted pt-3 todo-list" key={todo.id}>
                     <div className="bd-placeholder-img mr-2 rounded">
@@ -46,12 +59,21 @@ class Todos extends React.Component {
 
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
+                            {/* TODOS */}
                             <Link className="btn btn-info" to={`/todos/edit/${todo.id}`}>
                                 <i className="far fa-edit"></i>
                             </Link>
-                            <Link className="btn btn-danger" to={`/todos/delete/${todo.id}`}>
+                            {/* <Link className="btn btn-danger" to={`/todos/delete/${todo.id}`}>
                                 <i className="far fa-trash-alt"></i>
-                            </Link>
+                            </Link> */}
+                            <Button 
+                                variant="danger"
+                                onClick={()=>{
+                                    this.props.showModal(todo, 'DELETE_TODO');
+                                }}
+                            >
+                                <i className="far fa-trash-alt"></i>
+                            </Button>
                         </div>
 
                         {this.renderTime(todo.updatedAt)}
@@ -80,30 +102,27 @@ class Todos extends React.Component {
         );
     }
 
+    renderRemainTaskCount() {
+        // TODOS
+        return (
+            <p className="mt-3">
+                <b>{this.todoCount}</b> out of <b>{this.todoTotalCount}</b> task(s) remaining
+            </p>
+        );
+    }
+
     render () {
         // Before API call responds
         if (!this.props.todos) {
             return <div>Loading...</div>;
         }
-        console.log(this.props);
         return (
             <div className="mt-3 p-3 bg-white rounded shadow-sm">
                 {this.renderCreate()}
                 <h6 className="border-bottom border-gray pb-2 mb-0">My Todo List</h6>
                 {this.renderTodoList()}
-
-                <Button
-                    onClick={() => {
-                        this.props.showModal({
-                            header: 'test header',
-                            content: 'test content'
-                        }, 'CREATE_TODO');
-                    }}
-                >
-                    TEST
-                </Button>
-                
-                <BsModel />
+                {this.renderRemainTaskCount()}
+                <TodoDelete />
             </div>
         );
     }

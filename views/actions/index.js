@@ -15,20 +15,15 @@ const todoApi = axios.create({
     baseURL: '/'
 });
 
-const bsModalInitProps = {
-    header: '',
-    content: ''
-};
+
 
 export const showModal = (modalProps, modalType) => {
     // console.log(modalProps);    
-    
     return (dispatch) => {
         dispatch({
             type: SHOW_MODAL,
-            modalProps,
             modalType,
-            show: true
+            modalProps
         });
     };
 };
@@ -37,8 +32,6 @@ export const hideModal = () => {
     return (dispatch) => {
         dispatch({
             type: HIDE_MODAL,
-            modalProps: bsModalInitProps,
-            show: false
         });
     };
 };
@@ -52,7 +45,6 @@ export const deleteTodo = (id) => {
                 type: DELETE_TODO,
                 payload: id
             });
-            history.push('/');
         });
     };
 };

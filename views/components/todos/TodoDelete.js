@@ -1,63 +1,79 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import Modal from '../Modal';
+// import {Link} from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
+// import Modal from '../Modal';
 
-import history from '../../history';
-import { getTodo, deleteTodo } from '../../actions';
+// import history from '../../history';
+import { getTodo, deleteTodo, hideModal } from '../../actions';
 
 class TodoDelete extends React.Component {
     componentDidMount() {
-        this.props.getTodo(this.props.match.params.id);
+        // this.props.getTodo(this.props.match.params.id);
         console.log(this.props);
     }
 
     renderContent() {
-        if (!this.props.todo){
-            return 'Are you sure you want to delete this item?';
+        // this.props.getTodo(this.props.modal.modalProps.id);
+        if (!this.props.modal.modalProps){
+            return (
+                <Modal
+                    show={this.props.modal.modalType === 'DELETE_TODO'}
+                >
+                    Are you sure you want to delete this item?
+                </Modal>
+            );
         }
         return (
-            <div>
-                <div>Todo Description:</div>
-                <h4>{this.props.todo.description}?</h4>
-            </div>
+            <Modal
+                show={this.props.modal.modalType === 'DELETE_TODO'}
+                onHide={this.props.hideModal}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Body>
+                    <div>Todo Description:</div>
+                    <h4>{this.props.modal.modalProps.description}?</h4>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button 
+                        variant="danger"
+                        onClick={()=>{
+                            // this.props.deleteTodo(this.props.match.params.id);
+                            this.props.deleteTodo(this.props.modal.modalProps.id);
+                            this.props.hideModal();
+                        }}
+                    >
+                    Delete
+                    </Button>
+                    <Button 
+                        variant="secondary"
+                        onClick={this.props.hideModal}
+                    >
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+
+            </Modal>
         );
     }
 
-    renderAction() {
-        return (
-            <React.Fragment>
-                <Button 
-                    variant="danger"
-                    onClick={()=>{this.props.deleteTodo(this.props.match.params.id);}}
-                >
-                Delete
-                </Button>
-                <Link className="btn btn-secondary" to="/">Cancel</Link>
-
-            </React.Fragment>
-        );
-    }
     render() {
         return(
-            <Modal 
-                title="Confirm Delete"
-                onDismiss={() => history.push('/')}
-                content={this.renderContent()}
-                actions={this.renderAction()}
-            />
+            this.renderContent()
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        todo: state.todos[ownProps.match.params.id]
+        // todo: state.todos[ownProps.modal.modalProps.id],
+        modal: state.modal
     };
 };
 
 export default connect(
     mapStateToProps,
-    {getTodo, deleteTodo}
+    {getTodo, deleteTodo, hideModal}
 )(TodoDelete);
