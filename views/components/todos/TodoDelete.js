@@ -32,6 +32,9 @@ class TodoDelete extends React.Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
                     <div>Todo Description:</div>
                     <h4>{this.props.modal.modalProps.description}?</h4>
@@ -66,7 +69,7 @@ class TodoDelete extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         // todo: state.todos[ownProps.modal.modalProps.id],
         modal: state.modal

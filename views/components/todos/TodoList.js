@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import TodoDelete from './TodoDelete';
+import TodoCreate from './TodoCreate';
 import { getTodos, showModal } from '../../actions';
 import { Button } from 'react-bootstrap';
 
@@ -63,9 +64,6 @@ class Todos extends React.Component {
                             <Link className="btn btn-info" to={`/todos/edit/${todo.id}`}>
                                 <i className="far fa-edit"></i>
                             </Link>
-                            {/* <Link className="btn btn-danger" to={`/todos/delete/${todo.id}`}>
-                                <i className="far fa-trash-alt"></i>
-                            </Link> */}
                             <Button 
                                 variant="danger"
                                 onClick={()=>{
@@ -86,9 +84,12 @@ class Todos extends React.Component {
     renderCreate() {
         return (
             <div className="text-right">
-                <Link to="/todos/new" className="btn btn-primary">
+                <Button 
+                    className="btn btn-primary"
+                    onClick={()=> {this.props.showModal('', 'CREATE_TODO')}}
+                >
                     <i className="fas fa-plus"></i> Create
-                </Link>
+                </Button>
             </div>
         );
     }
@@ -123,6 +124,7 @@ class Todos extends React.Component {
                 {this.renderTodoList()}
                 {this.renderRemainTaskCount()}
                 <TodoDelete />
+                <TodoCreate />
             </div>
         );
     }

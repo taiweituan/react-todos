@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTodo } from '../../actions';
+import { createTodo, showModal } from '../../actions';
 import TodoForm from './TodoForm';
+import {Modal} from 'react-bootstrap';
+import ModalHeader from 'react-bootstrap/ModalHeader';
 // import TodoModal from '../Modal';
 
 class TodoCreate extends React.Component {
@@ -9,26 +11,51 @@ class TodoCreate extends React.Component {
         console.log('create onSubmit');
         this.props.createTodo(formValue);
     }
-    
-    render() {
+
+    renderContent() {
         const initValue = {
             description: '',
             completed: false
         };
-        
+
         return (
-            <div>
-                <h3>Create Todo</h3>
-                <TodoForm 
-                    onSubmit={this.onSubmit} 
-                    initialValues={initValue}
-                />
-            </div>
+            <Modal
+                show={this.props.modal.modalType === 'CREATE_TODO'}
+                onHide={this.props.hideModal}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <ModalHeader>
+                    <Modal.Title>
+                        Create To-Do
+                    </Modal.Title>
+                </ModalHeader>
+                <Modal.Body>
+                    <TodoForm 
+                        onSubmit={this.onSubmit} 
+                        initialValues={initValue}
+                    />
+                </Modal.Body>
+            </Modal>
+        );
+    }
+    
+    render() {
+        return (
+            this.renderContent()
         );
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        // todo: state.todos[ownProps.modal.modalProps.id],
+        modal: state.modal
+    };
+};
+
 export default connect(
-    null,
-    {createTodo}
+    mapStateToProps,
+    {createTodo, showModal}
 )(TodoCreate);

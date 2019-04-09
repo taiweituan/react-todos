@@ -1,6 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { Button } from 'react-bootstrap';
+import { hideModal } from '../../actions';
 
 class TodoForm extends React.Component {
     renderError = ({error, touched}) =>{
@@ -40,6 +42,7 @@ class TodoForm extends React.Component {
 
     onSubmit = (formValues) =>{
         this.props.onSubmit(formValues);
+        this.props.hideModal();
     }
 
     render() {
@@ -57,8 +60,13 @@ class TodoForm extends React.Component {
                     label="Completed" 
                     type="checkbox"
                 />
-                <button className="btn btn-primary">Submit</button>
-                <Link to="/" className="btn btn-secondary">Cancel</Link>
+                <Button variant="primary" type="submit" className="btn btn-primary">Submit</Button>
+                <Button 
+                    onClick={this.props.hideModal} 
+                    className="btn btn-secondary"
+                >
+                    Cancel
+                </Button>
             </form>
         );
     }
@@ -75,7 +83,19 @@ const validate = (formValues) => {
     return errors;
 };
 
-export default reduxForm({
+
+const mapStateToProps = (state) => {
+    return {
+        // todo: state.todos[ownProps.modal.modalProps.id],
+        modal: state.modal
+    };
+};
+
+
+export default connect(
+    mapStateToProps,
+    {hideModal}
+)(reduxForm({
     form: 'todoForm',
     validate
-})(TodoForm);
+})(TodoForm));

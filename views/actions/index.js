@@ -103,8 +103,9 @@ export const createTodo = ({description, completed}) => {
                 payload: res.data
             });
 
+            
             // Go to home page after success create todo
-            history.push('/');
+            // history.push('/');
         });
     };
 };
