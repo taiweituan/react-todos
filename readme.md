@@ -18,9 +18,9 @@ https://my-react-todo.herokuapp.com/
 Also, change the API base url to `http://localhost:3001` if this development method is used under file `./views/actions/index.js`
 
 ## Todo
-- [ ] Have forms inside the Modal
-- [ ] Have Modal to be pop-up instead of another Route
-- [ ] Better style in Form and Modal.
+- [x] Have forms inside the Modal
+- [x] Have Modal to be pop-up instead of another Route
+- [x] Better style in Form and Modal.
 - [ ] Seperate Webpack config for different environments (Development/Production)
 - [ ] DotEnv
 - [ ] Add User Authentication (Passport?)

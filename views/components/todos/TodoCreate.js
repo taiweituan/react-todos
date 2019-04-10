@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTodo, showModal } from '../../actions';
+import { createTodo, hideModal } from '../../actions';
 import TodoForm from './TodoForm';
 import {Modal} from 'react-bootstrap';
 import ModalHeader from 'react-bootstrap/ModalHeader';
@@ -27,9 +27,7 @@ class TodoCreate extends React.Component {
                 centered
             >
                 <ModalHeader>
-                    <Modal.Title>
-                        Create To-Do
-                    </Modal.Title>
+                    <Modal.Title>Create To-Do</Modal.Title>
                 </ModalHeader>
                 <Modal.Body>
                     <TodoForm 
@@ -57,5 +55,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    {createTodo, showModal}
+    {createTodo, hideModal}
 )(TodoCreate);

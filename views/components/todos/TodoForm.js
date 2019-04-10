@@ -5,6 +5,21 @@ import { Button } from 'react-bootstrap';
 import { hideModal } from '../../actions';
 
 class TodoForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.sampleTodos = [
+            'Fight your cats.',
+            'Feed your cats.',
+            'Trim your cats.',
+            'Brush your cats.',
+            'Walk your cats.',
+            'Toucha your cats.',
+            'Meow your cats.',
+            'Love your cats.',
+            'Clean cat litter.',
+            'Buy cat food.'
+        ];
+    }
     renderError = ({error, touched}) =>{
         if (touched && error) {
             return (
@@ -18,11 +33,15 @@ class TodoForm extends React.Component {
     // Changed to function becuse 'this' needs to reference to class
     renderInput = ({input, label, meta}) =>{        
         const className = `${meta.error && meta.touched ? 'error' : ''}`;
+        const sampleTodos = this.sampleTodos[Math.floor((Math.random() * 10))];
         return (
-            <div className={className}>
-                <label>{label}</label>
-                <input {...input} />
-                {this.renderError(meta)}
+            <div className={`form-group ${className}`}>
+                <label htmlFor="todoInputDescription">{label}</label>
+                <input type="text" className="form-control" id="todoInputDescription" {...input} />
+                <small id="todoInputHelp" className="form-text text-muted">e.g. {sampleTodos}</small>
+                <div className="text-danger">
+                    <small>{this.renderError(meta)}</small>
+                </div>
             </div>
         );
     }
@@ -32,10 +51,12 @@ class TodoForm extends React.Component {
         console.log(input);
         
         return (
-            <div className={className}>
-                <label>{label}</label>
-                {this.renderError(meta)}
-                <input {...input} type="checkbox" />
+            <div className={`form-group form-check ${className}`}>
+                <input className="form-check-input" id="todoCompleteCheckbox" {...input} type="checkbox" />
+                <label className="form-check-label" htmlFor="todoCompleteCheckbox">{label}</label>
+                <div className="text-danger">
+                    <small>{this.renderError(meta)}</small>
+                </div>
             </div>
         );
     }

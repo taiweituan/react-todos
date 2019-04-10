@@ -1,32 +1,37 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import  { getTodo, editTodo } from '../../actions';
-
+import  { getTodo, editTodo, hideModal } from '../../actions';
+import { Modal } from 'react-bootstrap';
 import TodoForm from './TodoForm';
 
 class TodoEdit extends React.Component {
-    componentDidMount() {
-        this.props.getTodo(this.props.match.params.id);        
-    }
-
     // TODO:
     onSubmit = (formValues) => {
-        console.log('todoEdit onSubmit');
-        this.props.editTodo(this.props.match.params.id, formValues);
+        this.props.editTodo(this.props.modal.modalProps.id, formValues);
     }
 
     render() {
-        const currentTodoVal = _.pick(this.props.todo, 'description', 'completed');
+        const currentTodoVal = _.pick(this.props.modal.modalProps, 'description', 'completed');
         
         return(
-            <div>
-                <h3>Edit Todo</h3>
-                <TodoForm 
-                    onSubmit={this.onSubmit} 
-                    initialValues={currentTodoVal}
-                />
-            </div>
+            <Modal 
+                show={this.props.modal.modalType === 'EDIT_TODO'}
+                onHide={this.props.hideModal}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header>
+                    <Modal.Title>Edit Todo</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TodoForm 
+                        onSubmit={this.onSubmit} 
+                        initialValues={currentTodoVal}
+                    />
+                </Modal.Body>
+            </Modal>
         );
     }
 }
@@ -36,16 +41,13 @@ class TodoEdit extends React.Component {
  * @param {*} state 
  * @param {*} ownProps - the properties of this component
  */
-const mapStateToProps = (state, ownProps) => {
-    // console.log(ownProps);
-
-    let targetId = ownProps.match.params.id;
+const mapStateToProps = (state) => {
     return {
-        todo: state.todos[targetId]
+        modal: state.modal
     };
 };
 
 export default connect(
     mapStateToProps,
-    {getTodo, editTodo}
+    {getTodo, editTodo, hideModal}
 )(TodoEdit);

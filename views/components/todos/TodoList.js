@@ -1,10 +1,11 @@
 import React from 'react';
 import  { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import TodoDelete from './TodoDelete';
 import TodoCreate from './TodoCreate';
+import TodoEdit from './TodoEdit';
 import { getTodos, showModal } from '../../actions';
 import { Button } from 'react-bootstrap';
 
@@ -61,15 +62,14 @@ class Todos extends React.Component {
                         {/* buttons */}
                         <div className="float-right todo-list__buttons">
                             {/* TODOS */}
-                            <Link className="btn btn-info" to={`/todos/edit/${todo.id}`}>
+                            <Button variant="info" onClick={()=>{
+                                this.props.showModal(todo, 'EDIT_TODO');
+                            }}>
                                 <i className="far fa-edit"></i>
-                            </Link>
-                            <Button 
-                                variant="danger"
-                                onClick={()=>{
-                                    this.props.showModal(todo, 'DELETE_TODO');
-                                }}
-                            >
+                            </Button>
+                            <Button variant="danger" onClick={()=>{
+                                this.props.showModal(todo, 'DELETE_TODO');
+                            }}>
                                 <i className="far fa-trash-alt"></i>
                             </Button>
                         </div>
@@ -86,7 +86,7 @@ class Todos extends React.Component {
             <div className="text-right">
                 <Button 
                     className="btn btn-primary"
-                    onClick={()=> {this.props.showModal('', 'CREATE_TODO')}}
+                    onClick={()=> {this.props.showModal('', 'CREATE_TODO');}}
                 >
                     <i className="fas fa-plus"></i> Create
                 </Button>
@@ -125,6 +125,7 @@ class Todos extends React.Component {
                 {this.renderRemainTaskCount()}
                 <TodoDelete />
                 <TodoCreate />
+                <TodoEdit />
             </div>
         );
     }
@@ -139,5 +140,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { getTodos, showModal }
+    { getTodos, showModal, TodoEdit }
 )(Todos);
