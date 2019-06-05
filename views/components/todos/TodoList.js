@@ -19,7 +19,7 @@ class Todos extends React.Component {
 
     componentDidMount() {
         // console.log('did mount');        
-        this.props.getTodos();    
+        this.props.getTodos();
     }
 
     renderIsCompleted(isCompleted) {
@@ -44,7 +44,7 @@ class Todos extends React.Component {
 
     renderTodoList() {
         this.todoTotalCount = 0;
-        this.todoCount = 0; 
+        this.todoCount = 0;         
         return this.props.todos.map((todo) => { 
             if (todo.completed === false){
                 this.todoCount++;
@@ -116,7 +116,7 @@ class Todos extends React.Component {
         // Before API call responds
         if (!this.props.todos) {
             return <div>Loading...</div>;
-        }
+        }        
         return (
             <div className="mt-3 p-3 bg-white rounded shadow-sm">
                 {this.renderCreate()}
@@ -132,8 +132,9 @@ class Todos extends React.Component {
 }
 
 const mapStateToProps = (state) => {    
+    // Convert todos to Array from Object so we can map it.
     return {
-        todos: Object.values(state.todos),
+        todos: Object.values(state.todos), 
         modal: state.modal
     };
 };
